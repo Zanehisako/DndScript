@@ -11,6 +11,24 @@ RACES = {
     "Gnome": "Gnomes are curious and inventive, with a knack for illusions and a strong connection to the earth.",
     "Tiefling": "Tieflings have infernal heritage, granting them unusual abilities and a distinctive appearance.",
 }
+RACES_TRAIT = {
+    "Human": {"Human Variant Trait": "Humans are versatile and adaptable, known for their ambition and creativity.", },
+    "Elf": {"High Elf": "Elves are graceful and long-lived, with keen senses and a natural affinity for magic.", },
+    "Dwarf": {"Hill Dwarf": "Dwarves are sturdy and resilient, known for their craftsmanship and love for the earth.", },
+    "Halfling": {"Lightfoot Halfling": "Halflings are small and nimble, with a natural talent for stealth and a love for comfort.", },
+    "Dragonborn": {"DRACONIC ANCESTRY (BLACK)": "Dragonborn are proud and noble, with draconic ancestry that grants them a breath weapon.",
+                   "DRACONIC ANCESTRY (Blue)": "Dragonborn are proud and noble, with draconic ancestry that grants them a breath weapon.",
+                   "DRACONIC ANCESTRY (Brass)": "Dragonborn are proud and noble, with draconic ancestry that grants them a breath weapon.",
+                   "DRACONIC ANCESTRY (Bronze)": "Dragonborn are proud and noble, with draconic ancestry that grants them a breath weapon.",
+                   "DRACONIC ANCESTRY (Copper)": "Dragonborn are proud and noble, with draconic ancestry that grants them a breath weapon.",
+                   "DRACONIC ANCESTRY (Gold)": "Dragonborn are proud and noble, with draconic ancestry that grants them a breath weapon.",
+                   "DRACONIC ANCESTRY (Green)": "Dragonborn are proud and noble, with draconic ancestry that grants them a breath weapon.",
+                   "DRACONIC ANCESTRY (Red)": "Dragonborn are proud and noble, with draconic ancestry that grants them a breath weapon.",
+                   "DRACONIC ANCESTRY (Silver)": "Dragonborn are proud and noble, with draconic ancestry that grants them a breath weapon.",
+                   "DRACONIC ANCESTRY (White)": "Dragonborn are proud and noble, with draconic ancestry that grants them a breath weapon."},
+    "Gnome": {"Rock Gnome": "Gnomes are curious and inventive, with a knack for illusions and a strong connection to the earth.", },
+}
+
 
 CLASSES = {
     "Fighter": "Fighters are skilled warriors who excel in physical combat, using their training and strength.",
@@ -21,6 +39,10 @@ CLASSES = {
     "Paladin": "Paladins are holy warriors who uphold justice and righteousness through divine magic and combat skills.",
     "Bard": "Bards are versatile performers who use their artistic talents to cast spells and inspire their allies.",
 }
+SEXS = [
+    "Male",
+    "Female"
+]
 
 
 def display_menu(stdscr, choices, title, descriptions):
@@ -37,8 +59,11 @@ def display_menu(stdscr, choices, title, descriptions):
                 stdscr.addstr(idx + 1, 0, f"  {choice}")
 
         # Display the description of the selected choice
-        stdscr.addstr(len(choices) + 2, 0, descriptions[choices[current_row]])
+        if len(descriptions) != 0:
+            stdscr.addstr(len(choices) + 2, 0,
+                          descriptions[choices[current_row]])
 
+        curses.curs_set(0)
         key = stdscr.getch()
         if key == curses.KEY_DOWN:
             current_row = (current_row + 1) % len(choices)
@@ -70,6 +95,12 @@ def main(stdscr):
 
     # Get character details
     name = get_user_input(stdscr, "Enter your character's Name: ")
+    level = get_user_input(stdscr, "Enter your character's Level: ")
+
+    # Select Sex
+    char_sex = display_menu(
+        stdscr, SEXS, "Select your character's Sex:", {}
+    )
 
     # Select class and race with descriptions
     char_class = display_menu(
@@ -78,6 +109,12 @@ def main(stdscr):
     race = display_menu(
         stdscr, list(RACES.keys()), "Select your character's Race:", RACES
     )
+    races_trait = display_menu(
+        stdscr, list(RACES_TRAIT[race].keys()
+                     ), "Select your character's Race Trait:", RACES_TRAIT[race]
+
+    )
+    curses.curs_set(1)
 
     background = get_user_input(stdscr, "Enter your character's Background: ")
     alignment = get_user_input(stdscr, "Enter your character's Alignment: ")
@@ -103,8 +140,11 @@ def main(stdscr):
 
     # Add character details to PDF
     pdf.cell(200, 10, txt=f"Name: {name}", ln=True)
+    pdf.cell(200, 10, txt=f"level: {level}", ln=True)
+    pdf.cell(200, 10, txt=f"Sex: {char_sex}", ln=True)
     pdf.cell(200, 10, txt=f"Class: {char_class}", ln=True)
     pdf.cell(200, 10, txt=f"Race: {race}", ln=True)
+    pdf.cell(200, 10, txt=f"Race trait: {races_trait}", ln=True)
     pdf.cell(200, 10, txt=f"Background: {background}", ln=True)
     pdf.cell(200, 10, txt=f"Alignment: {alignment}", ln=True)
     pdf.ln(10)
