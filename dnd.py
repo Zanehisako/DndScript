@@ -1,5 +1,4 @@
 import curses
-from fpdf import FPDF
 
 # Define races and classes with descriptions
 RACES = {
@@ -11,6 +10,7 @@ RACES = {
     "Gnome": "Gnomes are curious and inventive, with a knack for illusions and a strong connection to the earth.",
     "Tiefling": "Tieflings have infernal heritage, granting them unusual abilities and a distinctive appearance.",
 }
+
 RACES_TRAIT = {
     "Human": {"Human Variant Trait": "Humans are versatile and adaptable, known for their ambition and creativity.", },
     "Elf": {"High Elf": "Elves are graceful and long-lived, with keen senses and a natural affinity for magic.", },
@@ -130,39 +130,7 @@ def main(stdscr):
     charisma = get_user_input(stdscr, "Enter Charisma (Ability Score): ")
 
     # Create PDF
-    pdf = FPDF()
-    pdf.add_page()
-    pdf.set_font("Arial", size=12)
-
-    # Title
-    pdf.cell(200, 10, txt="D&D Character Sheet", ln=True, align="C")
-    pdf.ln(10)
-
-    # Add character details to PDF
-    pdf.cell(200, 10, txt=f"Name: {name}", ln=True)
-    pdf.cell(200, 10, txt=f"level: {level}", ln=True)
-    pdf.cell(200, 10, txt=f"Sex: {char_sex}", ln=True)
-    pdf.cell(200, 10, txt=f"Class: {char_class}", ln=True)
-    pdf.cell(200, 10, txt=f"Race: {race}", ln=True)
-    pdf.cell(200, 10, txt=f"Race trait: {races_trait}", ln=True)
-    pdf.cell(200, 10, txt=f"Background: {background}", ln=True)
-    pdf.cell(200, 10, txt=f"Alignment: {alignment}", ln=True)
-    pdf.ln(10)
-
-    pdf.cell(200, 10, txt=f"Strength: {strength}", ln=True)
-    pdf.cell(200, 10, txt=f"Dexterity: {dexterity}", ln=True)
-    pdf.cell(200, 10, txt=f"Constitution: {constitution}", ln=True)
-    pdf.cell(200, 10, txt=f"Intelligence: {intelligence}", ln=True)
-    pdf.cell(200, 10, txt=f"Wisdom: {wisdom}", ln=True)
-    pdf.cell(200, 10, txt=f"Charisma: {charisma}", ln=True)
-
-    pdf_file = "character_sheet.pdf"
-    pdf.output(pdf_file)
-
     stdscr.clear()
-    stdscr.addstr(
-        0, 0, f"Character sheet saved as '{pdf_file}'. Press any key to exit."
-    )
     stdscr.refresh()
     stdscr.getch()
 
