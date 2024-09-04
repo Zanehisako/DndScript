@@ -1,8 +1,10 @@
 import curses
-
+from InquirerPy import inquirer, prompt
+from InquirerPy.base.control import Choice
 # Define races and classes with descriptions
 RACES = {
-    "Human": "Humans are versatile and adaptable, known for their ambition and creativity.",
+    "Human": "Humans are versatile and adaptable known for their ambition and creativity.",
+
     "Elf": "Elves are graceful and long-lived, with keen senses and a natural affinity for magic.",
     "Dwarf": "Dwarves are sturdy and resilient, known for their craftsmanship and love for the earth.",
     "Halfling": "Halflings are small and nimble, with a natural talent for stealth and a love for comfort.",
@@ -42,6 +44,16 @@ CLASSES = {
 SEXS = [
     "Male",
     "Female"
+]
+ABILTY_SCORES = [
+    "Standard Array ",
+    "Manual/Rolled",
+    "Point buy"
+]
+
+STARTING_EQUIPMENT = [
+    "Equipment",
+    "Gold"
 ]
 
 
@@ -88,6 +100,18 @@ def get_user_input(stdscr, prompt, choices=None):
         return user_input
 
 
+def questions(_): return [
+    "MultiClassing",
+    "Feats"
+]
+
+
+additional_info = inquirer.checkbox(
+    message="Use Prerequisites",
+    choices=questions,
+).execute()
+
+
 def main(stdscr):
 
     curses.curs_set(1)
@@ -111,8 +135,19 @@ def main(stdscr):
     )
     races_trait = display_menu(
         stdscr, list(RACES_TRAIT[race].keys()
-                     ), "Select your character's Race Trait:", RACES_TRAIT[race]
+                     ), "Select your character's Race Trait:",
+        RACES_TRAIT[race]
 
+    )
+    abilty_scores = display_menu(
+        stdscr, list(ABILTY_SCORES,
+                     ), "Select your character's Race Trait:",
+        {}
+    )
+    starting_equipment = display_menu(
+        stdscr, list(STARTING_EQUIPMENT,
+                     ), "Select your character's Race Trait:",
+        {}
     )
     curses.curs_set(1)
 
@@ -129,7 +164,23 @@ def main(stdscr):
     wisdom = get_user_input(stdscr, "Enter Wisdom (Ability Score): ")
     charisma = get_user_input(stdscr, "Enter Charisma (Ability Score): ")
 
-    # Create PDF
+    print(name)
+    print(level)
+    print(char_sex)
+    print(char_class)
+    print(race)
+    print(races_trait)
+    print(starting_equipment)
+    print(abilty_scores)
+    print(background)
+    print(alignment)
+    print(strength)
+    print(dexterity)
+    print(constitution)
+    print(intelligence)
+    print(wisdom)
+    print(charisma)
+
     stdscr.clear()
     stdscr.refresh()
     stdscr.getch()
