@@ -59,6 +59,27 @@ STARTING_EQUIPMENT = [
     "Gold"
 ]
 
+PROFICIENCIES = [
+    "Animal Handling",
+    "Athletics",
+    "Intimidation",
+    "Nature",
+    "Perception",
+    "Survival",
+]
+
+ALIGNEMENT = [
+    "Chaotic Evil",
+    "Chaotic Good",
+    "Chaotic Neutral",
+    "Lawful Evil",
+    "Lawful Good",
+    "Lawful Neutral",
+    "Neutral",
+    "Neutral Evil",
+    "Neutral good",
+]
+
 
 def display_menu(stdscr, choices, title, descriptions):
     current_row = 0
@@ -176,47 +197,61 @@ def main(stdscr):
 
     char_info.append(level)
     # Select Sex
-    char_sex = display_menu(
+    char_info.append(display_menu(
         stdscr, SEXS, "Select your character's Sex:", {}
-    )
+    ))
 
     # Select class and race with descriptions
-    char_class = display_menu(
+    char_info.append(display_menu(
         stdscr, list(CLASSES.keys()), "Select your character's Class:", CLASSES
-    )
-    race = display_menu(
+    ))
+    char_info.append(display_menu(
         stdscr, list(RACES.keys()), "Select your character's Race:", RACES
-    )
-    races_trait = display_menu(
-        stdscr, list(RACES_TRAIT[race].keys()
+    ))
+    char_info.append(display_menu(
+        stdscr, list(RACES_TRAIT[char_info[4]].keys()
                      ), "Select your character's Race Trait:",
-        RACES_TRAIT[race]
-
-    )
-    abilty_scores = display_menu(
+        RACES_TRAIT[char_info[4]]
+    ))
+    char_info.append(display_menu(
         stdscr, list(ABILTY_SCORES,
-                     ), "Select your character's Race Trait:",
+                     ), "Select your character's Abiltyscores:",
         {}
-    )
-    starting_equipment = display_menu(
+    ))
+    char_info.append(display_menu(
         stdscr, list(STARTING_EQUIPMENT,
-                     ), "Select your character's Race Trait:",
+                     ), "Select your character's Starting equipment:",
         {}
-    )
+    ))
+    char_info.append(display_menu(
+        stdscr, PROFICIENCIES,
+        "Select your )character's Proficiencies:",
+        {}
+    ))
+
+    char_info.append(display_menu(
+        stdscr, ALIGNEMENT,
+        "Select your )character's Alignment:",
+        {}
+    ))
+
     curses.curs_set(1)
 
-    background = get_user_input(stdscr, "Enter your character's Background: ")
-    alignment = get_user_input(stdscr, "Enter your character's Alignment: ")
-
+    char_info.append(get_user_input(
+        stdscr, "Enter your character's Background: ")
+    )
     # Ability Scores
-    strength = get_user_input(stdscr, "Enter Strength (Ability Score): ")
-    dexterity = get_user_input(stdscr, "Enter Dexterity (Ability Score): ")
-    constitution = get_user_input(
-        stdscr, "Enter Constitution (Ability Score): ")
-    intelligence = get_user_input(
-        stdscr, "Enter Intelligence (Ability Score): ")
-    wisdom = get_user_input(stdscr, "Enter Wisdom (Ability Score): ")
-    charisma = get_user_input(stdscr, "Enter Charisma (Ability Score): ")
+    char_info.append(get_user_input(
+        stdscr, "Enter Strength (Ability Score): "))
+    char_info.append(get_user_input(
+        stdscr, "Enter Dexterity (Ability Score): "))
+    char_info.append(get_user_input(
+        stdscr, "Enter Constitution (Ability Score): "))
+    char_info.append(get_user_input(
+        stdscr, "Enter Intelligence (Ability Score): "))
+    char_info.append(get_user_input(stdscr, "Enter Wisdom (Ability Score): "))
+    char_info.append(get_user_input(
+        stdscr, "Enter Charisma (Ability Score): "))
 
     spells_names = [spell['name'] for spell in SPELLS]
 
@@ -224,8 +259,9 @@ def main(stdscr):
     char_info.append(spells_name)
 
     stdscr.clear()
+    stdscr.addstr("    Character Info:\n")
     for info in char_info:
-        stdscr.addstr(f"{info}\n")
+        stdscr.addstr(f" {info}\n")
 
     stdscr.refresh()
     stdscr.getch()
