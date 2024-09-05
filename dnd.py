@@ -1,7 +1,10 @@
 import curses
-from InquirerPy import inquirer, prompt
-from InquirerPy.base.control import Choice
+import json
 # Define races and classes with descriptions
+
+with open("spells.json", "r") as file:
+    SPELLS = json.load(file)
+
 RACES = {
     "Human": "Humans are versatile and adaptable known for their ambition and creativity.",
 
@@ -66,9 +69,10 @@ def display_menu(stdscr, choices, title, descriptions):
         # Display the options
         for idx, choice in enumerate(choices):
             if idx == current_row:
-                stdscr.addstr(idx + 1, 0, f"> {choice}", curses.A_REVERSE)
+                safe_addstr(stdscr, idx + 1, 0,
+                            f"> {choice}", True)
             else:
-                stdscr.addstr(idx + 1, 0, f"  {choice}")
+                safe_addstr(stdscr, idx + 1, 0, f"  {choice}", False)
 
         # Display the description of the selected choice
         if len(descriptions) != 0:
@@ -78,6 +82,7 @@ def display_menu(stdscr, choices, title, descriptions):
         curses.curs_set(0)
         key = stdscr.getch()
         if key == curses.KEY_DOWN:
+            # to make sure we dont go out of range
             current_row = (current_row + 1) % len(choices)
         elif key == curses.KEY_UP:
             current_row = (current_row - 1) % len(choices)
@@ -100,27 +105,76 @@ def get_user_input(stdscr, prompt, choices=None):
         return user_input
 
 
-def questions(_): return [
-    "MultiClassing",
-    "Feats"
-]
+def safe_addstr(stdscr, y, x, text, inverse: bool):
+    max_y, max_x = stdscr.getmaxyx()
+    if y < max_y and x < max_x:
+        stdscr.addstr(y, x, text[:max_x - x],
+                      curses.A_REVERSE if inverse else curses.A_NORMAL)
+    else:
+        # If y or x is out of bounds, handle the situation
+        pass
 
 
-additional_info = inquirer.checkbox(
-    message="Use Prerequisites",
-    choices=questions,
-).execute()
+def search(stdscr, items):
+    query = ''
+    current_row = 0
+    while True:
+        stdscr.clear()
+
+        # Display the current query
+        stdscr.addstr(0, 0, f"Search: {query}")
+
+        # Filter and display search results
+        filtered_items = [
+            item for item in items if query.lower() in item.lower()]
+        for idx, choice in enumerate(filtered_items):
+            if idx == current_row:
+                safe_addstr(stdscr, idx + 1, 0,
+                            f"> {choice}", True)
+            else:
+                safe_addstr(stdscr, idx + 1, 0, f"  {choice}", False)
+
+        stdscr.refresh()
+
+        key = stdscr.getch()
+
+        # Handle different types of input
+        if key in (curses.KEY_ENTER, 10, 13):
+            return filtered_items[current_row]
+            break  # Exit on Enter key
+            # Handle backspace (127 for most terminals, 8 for some)
+        elif key in (curses.KEY_BACKSPACE, 127, 8):
+            if len(query) > 0:
+                # Remove the last character from the query
+                query = query[:-1]
+        elif key == 27:  # Handle ESC key
+            break
+        elif 32 <= key <= 126:  # Printable characters
+            query += chr(key)
+        elif key == curses.KEY_DOWN:
+            # to make sure we dont go out of range
+            current_row = (current_row + 1) % len(filtered_items)
+        elif key == curses.KEY_UP:
+            current_row = (current_row - 1) % len(filtered_items)
+        elif key == curses.KEY_ENTER or key in [10, 13]:
+            return filtered_items[current_row]
+
+    # stdscr.clear()
+    # stdscr.addstr(0, 0, "Goodbye!")
+    # stdscr.refresh()
+    # stdscr.getch()
 
 
 def main(stdscr):
 
     curses.curs_set(1)
-    stdscr.clear()
-
+    char_info = []
     # Get character details
     name = get_user_input(stdscr, "Enter your character's Name: ")
+    char_info.append(name)
     level = get_user_input(stdscr, "Enter your character's Level: ")
 
+    char_info.append(level)
     # Select Sex
     char_sex = display_menu(
         stdscr, SEXS, "Select your character's Sex:", {}
@@ -164,24 +218,15 @@ def main(stdscr):
     wisdom = get_user_input(stdscr, "Enter Wisdom (Ability Score): ")
     charisma = get_user_input(stdscr, "Enter Charisma (Ability Score): ")
 
-    print(name)
-    print(level)
-    print(char_sex)
-    print(char_class)
-    print(race)
-    print(races_trait)
-    print(starting_equipment)
-    print(abilty_scores)
-    print(background)
-    print(alignment)
-    print(strength)
-    print(dexterity)
-    print(constitution)
-    print(intelligence)
-    print(wisdom)
-    print(charisma)
+    spells_names = [spell['name'] for spell in SPELLS]
+
+    spells_name = search(stdscr, spells_names)
+    char_info.append(spells_name)
 
     stdscr.clear()
+    for info in char_info:
+        stdscr.addstr(f"{info}\n")
+
     stdscr.refresh()
     stdscr.getch()
 
