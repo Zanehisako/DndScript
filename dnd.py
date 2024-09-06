@@ -7,6 +7,13 @@ with open("spells.json", "r") as file:
 
 with open("equipment.json", "r") as file:
     EQUIPMENTS = json.load(file)
+with open("races.json", "r") as file:
+    RACES_LEVELS = json.load(file)
+with open("classes.json", "r") as file:
+    CLASSES_TRAITS: list = json.load(file)
+
+char_class = ""
+
 RACES = {
     "Human": "Humans are versatile and adaptable known for their ambition and creativity.",
 
@@ -213,6 +220,7 @@ def main(stdscr):
     char_info.append(display_menu(
         stdscr, list(CLASSES.keys()), "Select your character's Class:", CLASSES
     ))
+    char_class = char_info[3]
     char_info.append(display_menu(
         stdscr, list(RACES.keys()), "Select your character's Race:", RACES
     ))
@@ -268,17 +276,19 @@ def main(stdscr):
 
     stdscr.clear()
     stdscr.addstr("    Character Info:\n")
-    for info in char_info:
-        stdscr.addstr(f" {info}\n")
+    for idx, info in enumerate(char_info):
+        stdscr.addstr(f"{idx}:{info}\n")
 
     stdscr.refresh()
     stdscr.getch()
 
     stdscr.clear()
     stdscr.addstr("  EQUIPMENTS:\n")
-    for equipment in EQUIPMENTS:
-        stdscr.addstr(f" {equipment}\n")
+    for idx, equipment in enumerate(EQUIPMENTS["Equipment"].keys()):
+        stdscr.addstr(f"{idx}:{equipment}\n")
 
+    safe_addstr(stdscr, 0, 0, f"char class is :{
+        CLASSES_TRAITS}\n", False)
     stdscr.refresh()
     stdscr.getch()
 

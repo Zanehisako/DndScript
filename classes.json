@@ -1,0 +1,155 @@
+[
+  {
+   "Fighter":{
+  "hitDice": "d10",
+  "proficiencies": {
+    "armor": ["Light", "Medium", "Heavy", "Shields"],
+    "weapons": ["Simple", "Martial"],
+    "savingThrows": ["Strength", "Constitution"],
+    "skills": ["Choose two from Acrobatics, Animal Handling, Athletics, History, Insight, Intimidation, Perception, and Survival"]
+  },
+  "features": {
+    "1": ["Fighting Style", "Second Wind"],
+    "2": ["Action Surge"],
+    "3": ["Martial Archetype"],
+    "4": ["Ability Score Improvement"],
+    "5": ["Extra Attack"],
+    "6": ["Ability Score Improvement"],
+    "7": ["Martial Archetype feature"],
+    "8": ["Ability Score Improvement"],
+    "9": ["Indomitable"],
+    "10": ["Martial Archetype feature"],
+    "11": ["Extra Attack (2)"],
+    "12": ["Ability Score Improvement"],
+    "13": ["Indomitable (two uses)"],
+    "14": ["Ability Score Improvement"],
+    "15": ["Martial Archetype feature"],
+    "16": ["Ability Score Improvement"],
+    "17": ["Action Surge (two uses)", "Indomitable (three uses)"],
+    "18": ["Martial Archetype feature"],
+    "19": ["Ability Score Improvement"],
+    "20": ["Extra Attack (3)"]
+  }
+}},
+{
+"Wizard":
+  {
+  "hitDice": "d6",
+  "proficiencies": {
+    "armor": [],
+    "weapons": ["Daggers", "Darts", "Slings", "Quarterstaffs", "Light Crossbows"],
+    "savingThrows": ["Intelligence", "Wisdom"],
+    "skills": ["Choose two from Arcana, History, Insight, Investigation, Medicine, and Religion"]
+  },
+  "features": {
+    "1": ["Spellcasting", "Arcane Recovery"],
+    "2": ["Arcane Tradition"],
+    "3": ["Cantrip Formulas"],
+    "4": ["Ability Score Improvement"],
+    "5": [],
+    "6": ["Arcane Tradition feature"],
+    "8": ["Ability Score Improvement"],
+    "10": ["Arcane Tradition feature"],
+    "12": ["Ability Score Improvement"],
+    "14": ["Arcane Tradition feature"],
+    "16": ["Ability Score Improvement"],
+    "18": ["Spell Mastery"],
+    "19": ["Ability Score Improvement"],
+    "20": ["Signature Spells"]
+  }
+}
+},
+{
+"Rogue":{
+  "hitDice": "d8",
+  "proficiencies": {
+    "armor": ["Light"],
+    "weapons": ["Simple", "Hand Crossbows", "Longswords", "Rapiers", "Shortswords"],
+    "tools": ["Thieves' Tools"],
+    "savingThrows": ["Dexterity", "Intelligence"],
+    "skills": ["Choose four from Acrobatics, Athletics, Deception, Insight, Intimidation, Investigation, Perception, Performance, Persuasion, Sleight of Hand, and Stealth"]
+  },
+  "features": {
+    "1": ["Expertise", "Sneak Attack", "Thieves' Cant"],
+    "2": ["Cunning Action"],
+    "3": ["Roguish Archetype"],
+    "4": ["Ability Score Improvement"],
+    "5": ["Uncanny Dodge"],
+    "6": ["Expertise"],
+    "7": ["Evasion"],
+    "8": ["Ability Score Improvement"],
+    "9": ["Roguish Archetype feature"],
+    "10": ["Ability Score Improvement"],
+    "11": ["Reliable Talent"],
+    "12": ["Ability Score Improvement"],
+    "13": ["Roguish Archetype feature"],
+    "14": ["Blindsense"],
+    "15": ["Slippery Mind"],
+    "16": ["Ability Score Improvement"],
+    "17": ["Roguish Archetype feature"],
+    "18": ["Elusive"],
+    "19": ["Ability Score Improvement"],
+    "20": ["Stroke of Luck"]
+  }
+}},
+{
+   "Cleric":{
+  "hitDice": "d8",
+  "proficiencies": {
+    "armor": ["Light", "Medium", "Shields"],
+    "weapons": ["Simple"],
+    "savingThrows": ["Wisdom", "Charisma"],
+    "skills": ["Choose two from History, Insight, Medicine, Persuasion, and Religion"]
+  },
+  "features": {
+    "1": ["Spellcasting", "Divine Domain"],
+    "2": ["Channel Divinity", "Divine Domain feature"],
+    "3": [],
+    "4": ["Ability Score Improvement"],
+    "5": ["Destroy Undead (CR 1/2)"],
+    "6": ["Channel Divinity (2/rest)", "Divine Domain feature"],
+    "8": ["Ability Score Improvement", "Destroy Undead (CR 1)", "Divine Domain feature"],
+    "10": ["Divine Intervention"],
+    "11": ["Destroy Undead (CR 2)"],
+    "12": ["Ability Score Improvement"],
+    "14": ["Destroy Undead (CR 3)"],
+    "16": ["Ability Score Improvement"],
+    "17": ["Destroy Undead (CR 4)", "Divine Domain feature"],
+    "18": ["Channel Divinity (3/rest)"],
+    "19": ["Ability Score Improvement"],
+    "20": ["Divine Intervention Improvement"]
+  }
+}},
+{
+   "Barbarian":{
+  "hitDice": "d12",
+  "proficiencies": {
+    "armor": ["Light", "Medium", "Shields"],
+    "weapons": ["Simple", "Martial"],
+    "savingThrows": ["Strength", "Constitution"],
+    "skills": ["Choose two from Animal Handling, Athletics, Intimidation, Nature, Perception, and Survival"]
+  },
+  "features": {
+    "1": ["Rage", "Unarmored Defense"],
+    "2": ["Reckless Attack", "Danger Sense"],
+    "3": ["Primal Path"],
+    "4": ["Ability Score Improvement"],
+    "5": ["Extra Attack", "Fast Movement"],
+    "6": ["Path feature"],
+    "7": ["Feral Instinct"],
+    "8": ["Ability Score Improvement"],
+    "9": ["Brutal Critical (1 die)"],
+    "10": ["Path feature"],
+    "11": ["Relentless Rage"],
+    "12": ["Ability Score Improvement"],
+    "13": ["Brutal Critical (2 dice)"],
+    "14": ["Path feature"],
+    "15": ["Persistent Rage"],
+    "16": ["Ability Score Improvement"],
+    "17": ["Brutal Critical (3 dice)"],
+    "18": ["Indomitable Might"],
+    "19": ["Ability Score Improvement"],
+    "20": ["Primal Champion"]
+  }
+}}
+]
