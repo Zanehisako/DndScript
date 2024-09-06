@@ -5,6 +5,8 @@ import json
 with open("spells.json", "r") as file:
     SPELLS = json.load(file)
 
+with open("equipment.json", "r") as file:
+    EQUIPMENTS = json.load(file)
 RACES = {
     "Human": "Humans are versatile and adaptable known for their ambition and creativity.",
 
@@ -139,6 +141,7 @@ def safe_addstr(stdscr, y, x, text, inverse: bool):
 def search(stdscr, items):
     query = ''
     current_row = 0
+    stuff = []
     while True:
         stdscr.clear()
 
@@ -161,15 +164,20 @@ def search(stdscr, items):
 
         # Handle different types of input
         if key in (curses.KEY_ENTER, 10, 13):
-            return filtered_items[current_row]
-            break  # Exit on Enter key
+            stuff.append(filtered_items[current_row])
+            choise = display_menu(stdscr, ["Yes", "No"], "Add another ?:", {})
+            if choise == "Yes":
+                continue
+            else:
+                return stuff
+            # break   Exit on Enter key
             # Handle backspace (127 for most terminals, 8 for some)
         elif key in (curses.KEY_BACKSPACE, 127, 8):
             if len(query) > 0:
                 # Remove the last character from the query
                 query = query[:-1]
         elif key == 27:  # Handle ESC key
-            break
+            return stuff
         elif 32 <= key <= 126:  # Printable characters
             query += chr(key)
         elif key == curses.KEY_DOWN:
@@ -262,6 +270,14 @@ def main(stdscr):
     stdscr.addstr("    Character Info:\n")
     for info in char_info:
         stdscr.addstr(f" {info}\n")
+
+    stdscr.refresh()
+    stdscr.getch()
+
+    stdscr.clear()
+    stdscr.addstr("  EQUIPMENTS:\n")
+    for equipment in EQUIPMENTS:
+        stdscr.addstr(f" {equipment}\n")
 
     stdscr.refresh()
     stdscr.getch()
