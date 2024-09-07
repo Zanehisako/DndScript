@@ -1,6 +1,5 @@
-[
-  {
-   "Fighter":{
+{  
+  "Fighter":{
   "hitDice": "d10",
   "proficiencies": {
     "armor": ["Light", "Medium", "Heavy", "Shields"],
@@ -30,8 +29,8 @@
     "19": ["Ability Score Improvement"],
     "20": ["Extra Attack (3)"]
   }
-}},
-{
+},
+
 "Wizard":
   {
   "hitDice": "d6",
@@ -58,8 +57,8 @@
     "20": ["Signature Spells"]
   }
 }
-},
-{
+,
+
 "Rogue":{
   "hitDice": "d8",
   "proficiencies": {
@@ -91,8 +90,8 @@
     "19": ["Ability Score Improvement"],
     "20": ["Stroke of Luck"]
   }
-}},
-{
+},
+
    "Cleric":{
   "hitDice": "d8",
   "proficiencies": {
@@ -119,8 +118,8 @@
     "19": ["Ability Score Improvement"],
     "20": ["Divine Intervention Improvement"]
   }
-}},
-{
+},
+
    "Barbarian":{
   "hitDice": "d12",
   "proficiencies": {
@@ -151,5 +150,5 @@
     "19": ["Ability Score Improvement"],
     "20": ["Primal Champion"]
   }
-}}
-]
+}
+}
